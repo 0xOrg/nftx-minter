@@ -1,0 +1,6 @@
+type ExampleEntity @entity {
+  id: ID!
+  count: BigInt!
+  vaultId: BigInt! # uint256
+  nftIds: [BigInt]! # uint256[]
+}

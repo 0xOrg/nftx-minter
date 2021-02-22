@@ -1,0 +1,35 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: nftxv5
+    network: mainnet
+    source:
+      address: "0xb67F19b92210Ca64c32DEFad5bED2898Cdd58aC4"
+      abi: nftxv5
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.2
+      language: wasm/assemblyscript
+      entities:
+        - Mint
+        - MintRequested
+        - NewVault
+        - OwnershipTransferred
+        - Redeem
+      abis:
+        - name: nftxv5
+          file: ./abis/nftxv5.json
+      eventHandlers:
+        - event: Mint(uint256,uint256[],uint256,address)
+          handler: handleMint
+        - event: MintRequested(uint256,uint256[],address)
+          handler: handleMintRequested
+        - event: NewVault(uint256,address)
+          handler: handleNewVault
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Redeem(uint256,uint256[],uint256,address)
+          handler: handleRedeem
+      file: ./src/mapping.ts
