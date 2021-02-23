@@ -1,35 +1,49 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
+description: Mints and redeems for NFTX
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: nftxv5
+    name: nftx
     network: mainnet
     source:
       address: "0xb67F19b92210Ca64c32DEFad5bED2898Cdd58aC4"
-      abi: nftxv5
+      abi: contract
+      startBlock: 6175244
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.2
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
         - Mint
-        - MintRequested
-        - NewVault
-        - OwnershipTransferred
         - Redeem
       abis:
-        - name: nftxv5
-          file: ./abis/nftxv5.json
-      eventHandlers:
-        - event: Mint(uint256,uint256[],uint256,address)
+        - name: contract
+          file: ./abis/nftx.json
+      callHandlers:
+        - function: mint(uint256,uint256[],uint256)
           handler: handleMint
-        - event: MintRequested(uint256,uint256[],address)
-          handler: handleMintRequested
-        - event: NewVault(uint256,address)
-          handler: handleNewVault
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
-        - event: Redeem(uint256,uint256[],uint256,address)
+        - function: redeem(uint256,uint256)
           handler: handleRedeem
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: XStore
+    network: mainnet
+    source:
+      address: "0xBe54738723cea167a76ad5421b50cAa49692E7B7"
+      abi: XStore
+      startBlock: 11442019
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - xTokenAddress
+      blockHandlers:
+        - handler: handleBlock
+          filter:
+            kind: call
+      abis:
+        - name: XStore
+          file: ./abis/xstore.json
       file: ./src/mapping.ts

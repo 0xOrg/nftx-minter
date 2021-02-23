@@ -1,6 +1,22 @@
-type ExampleEntity @entity {
+type XToken @entity {
   id: ID!
-  count: BigInt!
-  vaultId: BigInt! # uint256
-  nftIds: [BigInt]! # uint256[]
+  address: Bytes!
+  mints: [Minted!]
+  redeems: [Redeemed!]
+}
+
+type Minted @entity {
+  id: ID!
+  user: Bytes!
+  xToken: XToken!
+  nftIds: [BigInt!]
+  timestamp: BigInt!
+}
+
+type Redeemed @entity {
+  id: ID!
+  user: Bytes!
+  xToken: XToken!
+  nftIds: [BigInt!]
+  timestamp: BigInt!
 }
