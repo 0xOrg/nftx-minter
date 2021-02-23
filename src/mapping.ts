@@ -1,4 +1,4 @@
-import { Address, BigInt } from '@graphprotocol/graph-ts'
+import { Address, BigInt, ethereum } from '@graphprotocol/graph-ts'
 import {
   Mint,
   Redeem
@@ -8,11 +8,13 @@ import { XToken, Minted, Redeemed } from '../generated/schema'
 
 import { loadOrCreateXToken } from './helpers/loadOrCreateXToken'
 
+const xStoreAddress = '0xBe54738723cea167a76ad5421b50cAa49692E7B7'
+
 function getXToken(vaultId: BigInt): XToken {
-  const boundXStore = XStore.bind(Address.fromString('0xBe54738723cea167a76ad5421b50cAa49692E7B7'))
+  const boundXStore = XStore.bind(Address.fromString(xStoreAddress))
   const xTokenAddress = boundXStore.xTokenAddress(vaultId)
 
-  const xToken = loadOrCreateXToken(xTokenAddress)
+  let xToken = loadOrCreateXToken(xTokenAddress)
 
   return xToken
 }
@@ -28,7 +30,7 @@ export function handleMint(event: Mint): void {
   minted.user = event.transaction.from
   minted.xToken = xToken.id
   minted.nftIds = event.params.nftIds
-  minted.timestamp = event.block.timestamp.toI32()
+  minted.timestamp = event.block.timestamp
 
   minted.save()
 
@@ -47,7 +49,7 @@ export function handleRedeem(event: Redeem): void {
   redeemed.user = event.transaction.from
   redeemed.xToken = xToken.id
   redeemed.nftIds = event.params.nftIds
-  redeemed.timestamp = event.block.timestamp.toI32()
+  redeemed.timestamp = event.block.timestamp
 
   redeemed.save()
 
@@ -55,3 +57,5 @@ export function handleRedeem(event: Redeem): void {
   xToken.mints.push(redeemed.id)
   xToken.save()
 }
+
+export function handleBlock(block: ethereum.Block): void {}
