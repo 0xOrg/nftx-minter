@@ -86,7 +86,7 @@ export class XToken extends Entity {
   }
 }
 
-export class Minted extends Entity {
+export class MintEntity extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -94,17 +94,17 @@ export class Minted extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save Minted entity without an ID");
+    assert(id !== null, "Cannot save MintEntity entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save Minted entity with non-string ID. " +
+      "Cannot save MintEntity entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("Minted", id.toString(), this);
+    store.set("MintEntity", id.toString(), this);
   }
 
-  static load(id: string): Minted | null {
-    return store.get("Minted", id) as Minted | null;
+  static load(id: string): MintEntity | null {
+    return store.get("MintEntity", id) as MintEntity | null;
   }
 
   get id(): string {
@@ -161,7 +161,7 @@ export class Minted extends Entity {
   }
 }
 
-export class Redeemed extends Entity {
+export class RedeemEntity extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -169,17 +169,17 @@ export class Redeemed extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save Redeemed entity without an ID");
+    assert(id !== null, "Cannot save RedeemEntity entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save Redeemed entity with non-string ID. " +
+      "Cannot save RedeemEntity entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("Redeemed", id.toString(), this);
+    store.set("RedeemEntity", id.toString(), this);
   }
 
-  static load(id: string): Redeemed | null {
-    return store.get("Redeemed", id) as Redeemed | null;
+  static load(id: string): RedeemEntity | null {
+    return store.get("RedeemEntity", id) as RedeemEntity | null;
   }
 
   get id(): string {

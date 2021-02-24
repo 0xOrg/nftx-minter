@@ -1,13 +1,13 @@
 specVersion: 0.0.2
 description: Mints and redeems for NFTX
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: nftx
     network: mainnet
     source:
-      address: "0xAf93fCce0548D3124A5fC3045adAf1ddE4e8Bf7e"
+      address: "0xb67F19b92210Ca64c32DEFad5bED2898Cdd58aC4"
       abi: nftx
       startBlock: 6175244
     mapping:
@@ -19,12 +19,12 @@ dataSources:
         - Redeem
       abis:
         - name: nftx
-          file: ./abis/nftx.json
+          file: nftx/abis/nftx.json
         - name: xstore
-          file: ./abis/xstore.json
-      eventHandlers:
-        - event: Mint(uint256,uint256[],uint256,address)
+          file: nftx/abis/xstore.json
+      callHandlers:
+        - function: mint(uint256,uint256[],uint256)
           handler: handleMint
-        - event: Redeem(uint256,uint256[],uint256,address)
+        - function: redeem(uint256,uint256)
           handler: handleRedeem
-      file: ./src/mapping.ts
+      file: nftx/nftx.wasm

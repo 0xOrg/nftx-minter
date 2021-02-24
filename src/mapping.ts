@@ -4,7 +4,7 @@ import {
   Redeem
 } from '../generated/nftx/contract'
 import { XStore } from '../generated/xstore/XStore';
-import { XToken, Minted, Redeemed } from '../generated/schema'
+import { XToken, MintEntity, RedeemEntity } from '../generated/schema'
 
 import { loadOrCreateXToken } from './helpers/loadOrCreateXToken'
 
@@ -26,8 +26,8 @@ export function handleMint(event: Mint): void {
   let xToken = getXToken(vaultId)
 
   // create the minted entity
-  let minted = new Minted(event.transaction.hash.toHex())
-  minted.user = event.transaction.from
+  let minted = new MintEntity(event.transaction.hash.toHex())
+  minted.user = event.params.sender
   minted.xToken = xToken.id
   minted.nftIds = event.params.nftIds
   minted.timestamp = event.block.timestamp
@@ -45,8 +45,8 @@ export function handleRedeem(event: Redeem): void {
   let xToken = getXToken(vaultId)
 
   // create the redeemed entity
-  let redeemed = new Redeemed(event.transaction.hash.toHex())
-  redeemed.user = event.transaction.from
+  let redeemed = new RedeemEntity(event.transaction.hash.toHex())
+  redeemed.user = event.params.sender
   redeemed.xToken = xToken.id
   redeemed.nftIds = event.params.nftIds
   redeemed.timestamp = event.block.timestamp
