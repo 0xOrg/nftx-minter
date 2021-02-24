@@ -1,5 +1,4 @@
-import { BigInt, Address } from "@graphprotocol/graph-ts"
-import { Minted, Redeemed } from '../../generated/schema'
+import { Address } from "@graphprotocol/graph-ts"
 import {
   XToken
 } from '../../generated/schema'

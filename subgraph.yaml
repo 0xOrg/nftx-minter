@@ -8,7 +8,7 @@ dataSources:
     network: mainnet
     source:
       address: "0xb67F19b92210Ca64c32DEFad5bED2898Cdd58aC4"
-      abi: contract
+      abi: nftx
       startBlock: 6175244
     mapping:
       kind: ethereum/events
@@ -18,32 +18,13 @@ dataSources:
         - Mint
         - Redeem
       abis:
-        - name: contract
+        - name: nftx
           file: ./abis/nftx.json
+        - name: xstore
+          file: ./abis/xstore.json
       callHandlers:
         - function: mint(uint256,uint256[],uint256)
           handler: handleMint
         - function: redeem(uint256,uint256)
           handler: handleRedeem
-      file: ./src/mapping.ts
-  - kind: ethereum/contract
-    name: XStore
-    network: mainnet
-    source:
-      address: "0xBe54738723cea167a76ad5421b50cAa49692E7B7"
-      abi: XStore
-      startBlock: 11442019
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - xTokenAddress
-      blockHandlers:
-        - handler: handleBlock
-          filter:
-            kind: call
-      abis:
-        - name: XStore
-          file: ./abis/xstore.json
       file: ./src/mapping.ts
