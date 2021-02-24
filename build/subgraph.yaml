@@ -7,7 +7,7 @@ dataSources:
     name: nftx
     network: mainnet
     source:
-      address: "0xb67F19b92210Ca64c32DEFad5bED2898Cdd58aC4"
+      address: "0xAf93fCce0548D3124A5fC3045adAf1ddE4e8Bf7e"
       abi: nftx
       startBlock: 6175244
     mapping:
@@ -22,9 +22,9 @@ dataSources:
           file: nftx/abis/nftx.json
         - name: xstore
           file: nftx/abis/xstore.json
-      callHandlers:
-        - function: mint(uint256,uint256[],uint256)
+      eventHandlers:
+        - event: Mint(uint256,uint256[],uint256,address)
           handler: handleMint
-        - function: redeem(uint256,uint256)
+        - event: Redeem(uint256,uint256[],uint256,address)
           handler: handleRedeem
       file: nftx/nftx.wasm

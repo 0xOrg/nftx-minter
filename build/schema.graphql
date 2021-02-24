@@ -1,11 +1,11 @@
 type XToken @entity {
   id: ID!
   address: Bytes!
-  mints: [Minted!]
-  redeems: [Redeemed!]
+  mints: [MintEntity!]
+  redeems: [RedeemEntity!]
 }
 
-type Minted @entity {
+type MintEntity @entity {
   id: ID!
   user: Bytes!
   xToken: XToken!
@@ -13,7 +13,7 @@ type Minted @entity {
   timestamp: BigInt!
 }
 
-type Redeemed @entity {
+type RedeemEntity @entity {
   id: ID!
   user: Bytes!
   xToken: XToken!
