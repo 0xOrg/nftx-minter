@@ -2,6 +2,8 @@
 
 A subgraph to record mints and redeems for various xtokens (MASK, PUNK-BASIC etc) and the NFT IDs that have been minted and redeemed.
 
+Subgraph: https://thegraph.com/explorer/subgraph/0xorg/nftx-minter (not working!)
+
 ## Entities
 
 **XToken**
